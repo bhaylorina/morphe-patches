@@ -28,7 +28,7 @@ val activeManifestPatch = resourcePatch(
 
             val srv = m.createElement("service")
             // Naya Path yahan update kar diya gaya hai
-            srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:name", "app.morphe.extension.all.versioncode.KeepAliveService")
+            srv.setAttributeNS(NS_ANDROID, "android:name", "app.morphe.extension.shared.KeepAliveService")
             srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:exported", "false")
             srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:foregroundServiceType", "remoteMessaging")
             app.appendChild(srv)
