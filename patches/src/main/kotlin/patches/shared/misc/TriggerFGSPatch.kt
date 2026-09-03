@@ -4,18 +4,24 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import java.util.logging.Logger
 
+// 1. YAHAN MERGER ENGINE IMPORT HUA HAI
+import patches.all.misc.extension.sharedExtensionPatch
+
 @Suppress("unused")
 val triggerFGSPatch = bytecodePatch(
     name = "Trigger Immortal FGS",
     description = "Starts a persistent foreground keep-alive service shortly after the app launches.",
     default = true,
 ) {
+    // 2. YE LINE PATCHER KO FORCE KAREGI KI JAVA CLASS APK ME MERGE HO
+    dependsOn(sharedExtensionPatch)
+
     execute {
         val logger = Logger.getLogger(this::class.java.name)
         var hooked = false
 
         classDefForEach { c ->
-            // Scan for standard Application classes directly
+            // Scan for standard Application classes directly (Bina custom hooks ke taaki build fail na ho)
             val isAppClass = c.superclass == "Landroid/app/Application;" || 
                              c.superclass == "Landroidx/multidex/MultiDexApplication;" || 
                              c.type == "Lcom/x/android/XApplication;"
