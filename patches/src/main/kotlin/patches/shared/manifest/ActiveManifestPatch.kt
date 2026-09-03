@@ -14,7 +14,7 @@ val activeManifestPatch = resourcePatch(
         document("AndroidManifest.xml").use { m ->
             val root = m.documentElement ?: return@use
             
-            // Standard XML parsing instead of missing custom helpers
+            // Standard DOM XML parsing
             val appNodes = m.getElementsByTagName("application")
             if (appNodes.length == 0) return@use
             val app = appNodes.item(0)
@@ -27,7 +27,8 @@ val activeManifestPatch = resourcePatch(
             root.appendChild(p2)
 
             val srv = m.createElement("service")
-            srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:name", "app.morphe.extension.shared.KeepAliveService")
+            // Naya Path yahan update kar diya gaya hai
+            srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:name", "app.morphe.extension.all.versioncode.KeepAliveService")
             srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:exported", "false")
             srv.setAttributeNS("http://schemas.android.com/apk/res/android", "android:foregroundServiceType", "remoteMessaging")
             app.appendChild(srv)
