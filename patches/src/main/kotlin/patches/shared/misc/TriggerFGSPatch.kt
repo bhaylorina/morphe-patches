@@ -4,7 +4,6 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import java.util.logging.Logger
 
-// YAHAN IMPORT PATH FIX KIYA GAYA HAI (Added app.morphe.)
 import app.morphe.patches.all.misc.extension.sharedExtensionPatch
 
 @Suppress("unused")
@@ -13,8 +12,8 @@ val triggerFGSPatch = bytecodePatch(
     description = "Starts a persistent foreground keep-alive service shortly after the app launches.",
     default = true,
 ) {
-    // MERGER ENGINE DEPENDENCY
-    dependsOn(sharedExtensionPatch)
+    // FIX: Added brackets () because it is a function!
+    dependsOn(sharedExtensionPatch())
 
     execute {
         val logger = Logger.getLogger(this::class.java.name)
