@@ -33,7 +33,7 @@ val triggerFGSPatch = bytecodePatch(
                 if (targetMethod != null && targetMethod.implementation != null) {
                     try {
                         // Naya Path yahan update kar diya gaya hai
-                        val smali = "invoke-static {p0}, Lapp/morphe/extension/all/versioncode/KeepAliveService;->init(Landroid/app/Application;)V"
+                        val smali = "invoke-static {p0}, Lapp/morphe/extension/shared/KeepAliveService;->init(Landroid/app/Application;)V"
                         val insts = targetMethod.implementation!!.instructions
                         
                         val retIdx = insts.indexOfLast { it.opcode.name == "return-void" }
