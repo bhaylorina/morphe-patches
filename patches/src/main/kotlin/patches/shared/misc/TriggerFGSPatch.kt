@@ -4,6 +4,7 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import java.util.logging.Logger
 
+// Perfect Import with app.morphe prefix
 import app.morphe.patches.all.misc.extension.sharedExtensionPatch
 
 @Suppress("unused")
@@ -12,7 +13,7 @@ val triggerFGSPatch = bytecodePatch(
     description = "Starts a persistent foreground keep-alive service shortly after the app launches.",
     default = true,
 ) {
-    // FIX: Added brackets () because it is a function!
+    // Fixed with Brackets ()
     dependsOn(sharedExtensionPatch())
 
     execute {
@@ -20,7 +21,7 @@ val triggerFGSPatch = bytecodePatch(
         var hooked = false
 
         classDefForEach { c ->
-            // Scan for standard Application classes directly
+            // Scan for standard Application classes
             val isAppClass = c.superclass == "Landroid/app/Application;" || 
                              c.superclass == "Landroidx/multidex/MultiDexApplication;" || 
                              c.type == "Lcom/x/android/XApplication;"
@@ -31,10 +32,10 @@ val triggerFGSPatch = bytecodePatch(
 
                 if (targetMethod != null && targetMethod.implementation != null) {
                     try {
-                        val smali = "invoke-static {p0}, Lapp/morphe/extension/shared/KeepAliveService;->init(Landroid/app/Application;)V"
+                        // Naya Path yahan update kar diya gaya hai
+                        val smali = "invoke-static {p0}, Lapp/morphe/extension/all/versioncode/KeepAliveService;->init(Landroid/app/Application;)V"
                         val insts = targetMethod.implementation!!.instructions
                         
-                        // Inject right before the method returns
                         val retIdx = insts.indexOfLast { it.opcode.name == "return-void" }
                         
                         if (retIdx != -1) {
