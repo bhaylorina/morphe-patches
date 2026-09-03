@@ -4,8 +4,8 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import java.util.logging.Logger
 
-// 1. YAHAN MERGER ENGINE IMPORT HUA HAI
-import patches.all.misc.extension.sharedExtensionPatch
+// YAHAN IMPORT PATH FIX KIYA GAYA HAI (Added app.morphe.)
+import app.morphe.patches.all.misc.extension.sharedExtensionPatch
 
 @Suppress("unused")
 val triggerFGSPatch = bytecodePatch(
@@ -13,7 +13,7 @@ val triggerFGSPatch = bytecodePatch(
     description = "Starts a persistent foreground keep-alive service shortly after the app launches.",
     default = true,
 ) {
-    // 2. YE LINE PATCHER KO FORCE KAREGI KI JAVA CLASS APK ME MERGE HO
+    // MERGER ENGINE DEPENDENCY
     dependsOn(sharedExtensionPatch)
 
     execute {
@@ -21,7 +21,7 @@ val triggerFGSPatch = bytecodePatch(
         var hooked = false
 
         classDefForEach { c ->
-            // Scan for standard Application classes directly (Bina custom hooks ke taaki build fail na ho)
+            // Scan for standard Application classes directly
             val isAppClass = c.superclass == "Landroid/app/Application;" || 
                              c.superclass == "Landroidx/multidex/MultiDexApplication;" || 
                              c.type == "Lcom/x/android/XApplication;"
